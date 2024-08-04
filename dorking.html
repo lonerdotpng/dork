@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: black;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .loader {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      z-index: 9999;
+    }
+
+    .bar {
+      display: inline-block;
+      width: 3px;
+      height: 20px;
+      background-color: rgba(255, 255, 255, .5);
+      border-radius: 10px;
+      animation: scale-up4 1s linear infinite;
+    }
+
+    .bar:nth-child(2) {
+      height: 35px;
+      margin: 0 5px;
+      animation-delay: .25s;
+    }
+
+    .bar:nth-child(3) {
+      animation-delay: .5s;
+    }
+
+    @keyframes scale-up4 {
+      20% {
+        background-color: #ffff;
+        transform: scaleY(1.5);
+      }
+
+      40% {
+        transform: scaleY(1);
+      }
+    }
+
+    .container {
+      display: none;
+      width: 100%;
+      height: 100%;
+      background-color: #313131;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.171) 2px, transparent 0);
+      background-size: 30px 30px;
+      background-position: -5px -5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .login-box {
+      width: 400px;
+      padding: 40px;
+      background: rgba(24, 20, 20, 0.987);
+      box-sizing: border-box;
+      box-shadow: 0 15px 25px rgba(0,0,0,.6);
+      border-radius: 10px;
+    }
+
+    .login-box .user-box {
+      position: relative;
+    }
+
+    .login-box .user-box input {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 16px;
+      color: #fff;
+      margin-bottom: 30px;
+      border: none;
+      border-bottom: 1px solid #fff;
+      outline: none;
+      background: transparent;
+    }
+
+    .login-box .user-box label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 10px 0;
+      font-size: 16px;
+      color: #fff;
+      pointer-events: none;
+      transition: .5s;
+    }
+
+    .login-box .user-box input:focus ~ label,
+    .login-box .user-box input:valid ~ label {
+      top: -20px;
+      left: 0;
+      color: #bdb8b8;
+      font-size: 12px;
+    }
+
+    .login-box form button {
+      position: relative;
+      display: inline-block;
+      padding: 10px 20px;
+      color: #ffffff;
+      font-size: 16px;
+      text-decoration: none;
+      text-transform: uppercase;
+      overflow: hidden;
+      transition: .5s;
+      margin-top: 40px;
+      letter-spacing: 4px;
+      background: none;
+      border: 1px solid #fff;
+      cursor: pointer;
+    }
+
+    .login-box form button:hover {
+      background: #03f40f;
+      color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 5px #03f40f,
+                  0 0 25px #03f40f,
+                  0 0 50px #03f40f,
+                  0 0 100px #03f40f;
+    }
+
+    .login-box form button span {
+      position: absolute;
+      display: block;
+    }
+
+    @keyframes btn-anim1 {
+      0% {
+        left: -100%;
+      }
+
+      50%,100% {
+        left: 100%;
+      }
+    }
+
+    .login-box form button span:nth-child(1) {
+      bottom: 2px;
+      left: -100%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #03f40f);
+      animation: btn-anim1 2s linear infinite;
+    }
+
+    .display-name {
+      margin-top: 20px;
+      text-align: center;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .Btn {
+      width: 120px;
+      height: 45px;
+      background-color: rgb(65, 64, 64);
+      border: none;
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.342);
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      position: relative;
+      overflow: hidden;
+      transition-duration: .5s;
+      margin-top: 10px;
+    }
+
+    .text {
+      color: rgb(184, 236, 104);
+      font-weight: 800;
+      letter-spacing: 1.1px;
+      z-index: 2;
+    }
+
+    .svgIcon {
+      z-index: 2;
+    }
+
+    .svgIcon path {
+      fill: rgb(184, 236, 104);
+    }
+
+    .Btn:hover {
+      color: rgb(230, 255, 193);
+    }
+
+    .effect {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: rgb(184, 236, 104);
+      border-radius: 50%;
+      z-index: 1;
+      opacity: 0;
+      transition-duration: .5s;
+    }
+
+    .Btn:hover .effect {
+      transform: scale(15);
+      transform-origin: center;
+      opacity: 1;
+      transition-duration: .5s;
+    }
+
+    .Btn:hover {
+      box-shadow: 0px 0px 5px rgb(184, 236, 104),
+      0px 0px 10px rgb(184, 236, 104),
+      0px 0px 30px rgb(184, 236, 104);
+      transition-duration: .7s;
+    }
+
+    .Btn:hover .text {
+      color: rgb(65, 64, 64);
+    }
+
+    .Btn:hover .svgIcon path {
+      fill: rgb(65, 64, 64);
+    }
+
+    .mode-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      color: #ffffff;
+      font-size: 16px;
+      text-decoration: none;
+      text-transform: uppercase;
+      background: none;
+      border: 1px solid #fff;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: .5s;
+    }
+
+    .mode-button:hover {
+      background: #03f40f;
+      color: #fff;
+      box-shadow: 0 0 5px #03f40f,
+                  0 0 25px #03f40f,
+                  0 0 50px #03f40f,
+                  0 0 100px #03f40f;
+    }
+
+    .generate-button {
+      width: 120px;
+      height: 45px;
+      background-color: rgb(65, 64, 64);
+      border: none;
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.342);
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      position: relative;
+      overflow: hidden;
+      transition-duration: .5s;
+      margin-top: 10px;
+    }
+
+    .generate-button:hover {
+      color: rgb(230, 255, 193);
+    }
+
+    .generate-button .effect {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: rgb(184, 236, 104);
+      border-radius: 50%;
+      z-index: 1;
+      opacity: 0;
+      transition-duration: .5s;
+    }
+
+    .generate-button:hover .effect {
+      transform: scale(15);
+      transform-origin: center;
+      opacity: 1;
+      transition-duration: .5s;
+    }
+
+    .generate-button:hover {
+      box-shadow: 0px 0px 5px rgb(184, 236, 104),
+      0px 0px 10px rgb(184, 236, 104),
+      0px 0px 30px rgb(184, 236, 104);
+      transition-duration: .7s;
+    }
+
+    .generate-button:hover .text {
+      color: rgb(65, 64, 64);
+    }
+
+    .generate-button:hover .svgIcon path {
+      fill: rgb(65, 64, 64);
+    }
+
+  </style>
+</head>
+<body>
+<div class="loader">
+  <span class="bar"></span>
+  <span class="bar"></span>
+  <span class="bar"></span>
+</div>
+<div class="container">
+  <button class="mode-button" onclick="window.location.href='https://www.exploit-db.com/google-hacking-database'">Mode</button>
+  <div class="login-box">
+    <form id="login-form">
+      <div class="user-box">
+        <input type="text" id="tName" name="" required="">
+        <label>T-name</label>
+      </div>
+      <center>
+        <button type="submit">
+          SEND
+          <span></span>
+        </button>
+      </center>
+    </form>
+    <div id="display-name" class="display-name"></div>
+    <button class="Btn" id="copy-button">
+      <svg viewBox="0 0 512 512" class="svgIcon" height="1em">
+        <path d="M288 448H64V224h64V160H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V384H288v64zm-64-96H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H224c-35.3 0-64 28.7-64 64V288c0 35.3 28.7 64 64 64z"></path>
+      </svg>
+      <p class="text">COPY</p>
+      <span class="effect"></span>
+    </button>
+    <button class="generate-button" id="generate-button">
+      <p class="text">Generate for Insta</p>
+      <span class="effect"></span>
+    </button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Show loader for 3 seconds
+  setTimeout(function() {
+    document.querySelector('.loader').style.display = 'none';
+    document.querySelector('.container').style.display = 'flex';
+  }, 3000);
+
+  const form = document.getElementById('login-form');
+  const tNameInput = document.getElementById('tName');
+  const displayName = document.getElementById('display-name');
+  const copyButton = document.getElementById('copy-button');
+  const generateButton = document.getElementById('generate-button');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const tName = tNameInput.value;
+    if (tName.trim() !== '') {
+      displayName.innerHTML = `T-name: ${tName}`;
+      tNameInput.value = '';
+    } else {
+      alert('Please enter a name.');
+    }
+  });
+
+  copyButton.addEventListener('click', function() {
+    const textToCopy = displayName.innerText;
+    if (textToCopy.trim() !== '') {
+      navigator.clipboard.writeText(textToCopy).then(function() {
+        alert('Name copied to clipboard!');
+      }, function(err) {
+        console.error('Could not copy text: ', err);
+      });
+    } else {
+      alert('Nothing to copy.');
+    }
+  });
+
+  generateButton.addEventListener('click', function() {
+    const nameForInsta = displayName.innerText;
+    if (nameForInsta.trim() !== '') {
+      // Implement your logic for generating for Instagram here
+      alert(`Generated for Instagram: ${nameForInsta}`);
+    } else {
+      alert('Nothing to generate.');
+    }
+  });
+});
+</script>
+</body>
+</html>
