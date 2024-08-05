@@ -2,9 +2,6 @@
 <html>
 <head>
   <style>
-    <link rel="icon" type="image/x-icon" href="favicon-32x32.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     body {
       background-color: black;
       margin: 0;
@@ -264,8 +261,8 @@
       color: #fff;
       box-shadow: 0 0 5px #03f40f,
                   0 0 25px #03f40f,
-                  0 0 50px #03f40f,
-                  0 0 100px #03f40f;
+                  0 0 50px  rgb(34 197 94),
+                  0 0 100px rgb(14 165 233);
     }
 
     .generate-button {
@@ -332,7 +329,7 @@
   <span class="bar"></span>
 </div>
 <div class="container">
-  <button class="mode-button" onclick="window.location.href='https://www.exploit-db.com/google-hacking-database'">Mode</button>
+  <button class="mode-button" onclick="window.location.href='https://www.exploit-db.com/google-hacking-database'">ghdb</button>
   <div class="login-box">
     <form id="login-form">
       <div class="user-box">
@@ -367,7 +364,7 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(function() {
     document.querySelector('.loader').style.display = 'none';
     document.querySelector('.container').style.display = 'flex';
-  }, 3000);
+  }, 1500);
 
   const form = document.getElementById('login-form');
   const tNameInput = document.getElementById('tName');
@@ -400,11 +397,13 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   generateButton.addEventListener('click', function() {
-    const nameForInsta = displayName.innerText;
-    if (nameForInsta.trim() !== '') {
-      // Implement your logic for generating for Instagram here
-      alert(`Generated for Instagram: ${nameForInsta}`);
-    } else {
+   event.preventDefault();
+    const tName = tNameInput.value;
+    if (tName.trim() !== '') {
+      displayName.innerHTML = `https://www.instagram.com/${tName}`;
+      tNameInput.value = '';
+    }
+     else {
       alert('Nothing to generate.');
     }
   });
