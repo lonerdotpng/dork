@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,111 @@
       background-color: black;
       z-index: 9999;
     }
+/* From Uiverse.io by vinodjangid07 */ 
+#checkbox {
+  display: none;
+}
 
+.toggle {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition-duration: .5s;
+  left: 15px;
+  top: 17px;
+}
+
+ .dashboard-header {
+            width: 100%;
+            height: 60px;
+            background-color: #282936;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            color: rgb(91 33 182);
+            font-size: 1.2rem;
+            z-index: 1000;
+        }
+
+        .dashboard-content {
+            border-radius: 25px;
+            visibility: hidden;
+            opacity: 0;
+            width: 25%;
+            height: 100%;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            background-color: #2e3138;
+            color: rgb(91 33 182);
+            overflow: auto;
+            z-index: 1001;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .dashboard-content.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .dashboard-content h2 {
+            margin-top: 0;
+        }
+
+.bars {
+  width: 100%;
+  height: 4px;
+  background-color: #26e02c;
+  border-radius: 4px;
+}
+
+#bar2 {
+  transition-duration: .8s;
+}
+
+#bar1,#bar3 {
+  width: 100%;
+}
+
+#checkbox:checked + .toggle .bars {
+  position: absolute;
+  transition-duration: .5s;
+}
+
+#checkbox:checked + .toggle #bar2 {
+  transform: scaleX(0);
+  transition-duration: .5s;
+}
+
+#checkbox:checked + .toggle #bar1 {
+  width: 100%;
+  transform: rotate(45deg);
+  transition-duration: .5s;
+}
+
+#checkbox:checked + .toggle #bar3 {
+  width: 100%;
+  transform: rotate(-45deg);
+  transition-duration: .5s;
+}
+
+#checkbox:checked + .toggle {
+  transition-duration: .5s;
+  transform: rotate(180deg);
+}
     .bar {
       display: inline-block;
       width: 3px;
@@ -332,6 +437,13 @@
   <span class="bar"></span>
 </div>
 <div class="container">
+
+ <input type="checkbox" id="checkbox">
+    <label for="checkbox" class="toggle">
+        <div class="bars" id="bar1"></div>
+        <div class="bars" id="bar2"></div>
+        <div class="bars" id="bar3"></div>
+    </label>
   <button class="mode-button" onclick="window.location.href='https://www.exploit-db.com/google-hacking-database'">ghdb</button>
   <div class="login-box">
     <form id="login-form">
@@ -339,6 +451,7 @@
         <input type="text" id="tName" name="" required="">
         <label>T-name</label>
       </div>
+      
       <center>
         <button type="submit">
           SEND
@@ -358,6 +471,7 @@
       <p class="text">Generate for Insta</p>
       <span class="effect"></span>
     </button>
+    
   </div>
 </div>
 
